@@ -650,4 +650,164 @@ canvas {
 .software-card, .btn, .nav-link {
     transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
+    /* ===== MOBILE FIXES - ADD TO END OF style.css ===== */
+
+@media screen and (max-width: 768px) {
+    /* Header/Navigation */
+    .header {
+        padding: 1rem;
+    }
+    
+    .nav {
+        gap: 0.8rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+    }
+    
+    .btn-outline {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding: 0 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.8rem;
+    }
+    
+    .hero-typing {
+        font-size: 0.9rem;
+    }
+    
+    /* Sections */
+    .section {
+        padding: 3rem 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Software Grid */
+    .software-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .software-card {
+        margin: 0;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    /* About Section */
+    .about-card {
+        padding: 1.5rem;
+    }
+    
+    .about-text {
+        font-size: 0.95rem;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+    
+    .contact-label {
+        min-width: auto;
+    }
+    
+    /* Messages Section */
+    .messages-container {
+        margin: 0;
+    }
+    
+    .message-bubble {
+        max-width: 95%;
+    }
+    
+    .message-composer {
+        padding: 1rem;
+    }
+    
+    .message-input, 
+    .message-textarea {
+        font-size: 0.9rem;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 90%;
+        margin: 1rem;
+    }
+    
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    /* Canvas - Reduce animation load on mobile */
+    #particles {
+        opacity: 0.5;
+    }
+    
+    .orb1, .orb2 {
+        opacity: 0.15;
+    }
+    
+    /* Cursor - Disable on mobile */
+    .cursor {
+        display: none;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+    .nav {
+        gap: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.7rem;
+        margin-left: 0.3rem;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
 }
