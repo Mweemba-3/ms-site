@@ -894,4 +894,170 @@ canvas {
         padding: 4rem 1rem;
         overflow-y: auto;
     }
+    /* ===== IMPROVED SOFTWARE GRID FOR MANY APPS ===== */
+
+.software-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.software-card {
+    background: rgba(0, 247, 255, 0.03);
+    border: 1px solid rgba(0, 247, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.software-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 247, 255, 0.15);
+    background: rgba(0, 247, 255, 0.05);
+}
+
+.card-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+}
+
+.card-content {
+    padding: 1.2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+}
+
+.card-category {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(0, 247, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    align-self: flex-start;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-top: auto;
+}
+
+.download-btn {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+}
+
+.playstore-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.playstore-link:hover {
+    color: var(--primary);
+}
+
+/* Grid for many apps - compact but readable */
+@media screen and (min-width: 1200px) {
+    .software-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .software-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .software-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .card-image {
+        height: 100px;
+    }
+    
+    .card-content {
+        padding: 0.8rem;
+    }
+    
+    .card-title {
+        font-size: 0.95rem;
+    }
+    
+    .card-description {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 1;
+    }
+    
+    .download-btn, .playstore-link {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .software-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-image {
+        height: 140px;
+    }
 }
