@@ -3,9 +3,29 @@
     {
       "src": "*.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/admin.html",
+      "dest": "/admin.html"
+    },
+    {
+      "src": "/(.*)\\.css",
+      "dest": "/$1.css"
+    },
+    {
+      "src": "/(.*)\\.js",
+      "dest": "/$1.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
