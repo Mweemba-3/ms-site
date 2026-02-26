@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS CodeForge - Enterprise Software Engineering</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300f7ff'><text x='10' y='70' font-size='70'>⚡</text></svg>">
+</head>
+<body>
+    <!-- Canvas Backgrounds -->
+    <canvas id="binary"></canvas>
+    <canvas id="particles"></canvas>
+    
+    <!-- Ambient Orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    
+    <!-- Navigation -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-text">MS<span class="logo-accent">CodeForge</span></span>
+        </div>
+        
+        <nav class="nav">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#software" class="nav-link">Software</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#community" class="nav-link">Community</a>
+            <button class="btn btn-outline" onclick="openLoginModal()">Admin</button>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <span class="badge">Enterprise Technology Solutions</span>
+                <h1 class="hero-title">
+                    <span class="hero-line">Forge intelligent</span>
+                    <span class="hero-line hero-gradient">software solutions</span>
+                </h1>
+                <div class="hero-typing" id="typing"></div>
+                <button class="btn btn-primary" onclick="document.getElementById('software').scrollIntoView({behavior: 'smooth'})">
+                    Explore Software →
+                </button>
+            </div>
+        </section>
+        
+        <!-- Software Grid Section -->
+        <section id="software" class="section">
+            <div class="container">
+                <h2 class="section-title">Software Portfolio</h2>
+                <div class="software-grid" id="softwareGrid">
+                    <!-- Software cards load here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About MS CodeForge</h2>
+                <div class="about-card">
+                    <p class="about-text">
+                        MS CodeForge engineers enterprise-grade software solutions for global businesses. 
+                        Our applications deployed on Google Play Store serve thousands of daily active users 
+                        across fintech, logistics, and enterprise resource planning sectors.
+                    </p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-label">Enterprise Inquiries</span>
+                            <a href="mailto:enterprise@mscodeforge.com" class="contact-value">enterprise@mscodeforge.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Google Play</span>
+                            <span class="contact-value">25+ Production Apps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Community Messages Section -->
+        <section id="community" class="section">
+            <div class="container">
+                <h2 class="section-title">Community</h2>
+                <div class="messages-container">
+                    <div class="messages-list" id="messagesList">
+                        <!-- Messages load here -->
+                    </div>
+                    
+                    <div class="message-composer">
+                        <input type="text" id="messageName" class="message-input" placeholder="Your name" value="Guest">
+                        <input type="email" id="messageEmail" class="message-input" placeholder="Email (optional)">
+                        <textarea id="messageContent" class="message-textarea" placeholder="Type your message..."></textarea>
+                        <button class="btn btn-primary" onclick="sendMessage()">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">MS CodeForge</div>
+                <div class="footer-copyright">© 2026 · Enterprise Software Engineering</div>
+                <div class="footer-email">enterprise@mscodeforge.com</div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Administrator Access</h3>
+                <button class="modal-close" onclick="closeLoginModal()">X</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="loginUsername" class="modal-input" placeholder="Username">
+                <input type="password" id="loginPassword" class="modal-input" placeholder="Password">
+                <div class="modal-error" id="loginError"></div>
+                <button class="btn btn-primary modal-btn" onclick="authenticateAdmin()">Authenticate</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+<!-- Scripts - THIS ORDER IS CRITICAL -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="database.js"></script>
+<script src="main.js"></script> <!-- main.js MUST be last -->
+</body>
+</html>

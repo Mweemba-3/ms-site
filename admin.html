@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS CodeForge - Admin Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            padding: 100px 5% 50px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .admin-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f7ff;
+        }
+        
+        .admin-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-form {
+            display: grid;
+            gap: 1rem;
+            max-width: 600px;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .admin-table th {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+            color: #00f7ff;
+        }
+        
+        .admin-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+        }
+        
+        .btn-small {
+            padding: 0.25rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .field-hint {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="binary"></canvas>
+    <canvas id="particles"></canvas>
+    
+    <header class="header">
+        <div class="logo">
+            <span class="logo-text">MS<span class="logo-accent">CodeForge</span></span>
+        </div>
+        
+        <nav class="nav">
+            <a href="index.html" class="nav-link">View Site</a>
+            <button id="logoutBtn" class="btn btn-outline">Logout</button>
+        </nav>
+    </header>
+    
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Admin Console</h1>
+        </div>
+        
+        <!-- Add Software -->
+        <div class="admin-card">
+            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Add Software</h2>
+            <form id="addSoftwareForm" class="admin-form">
+                <input type="text" name="name" class="modal-input" placeholder="Software Name" required>
+                <textarea name="description" class="modal-input" placeholder="Description" rows="3"></textarea>
+                <input type="text" name="category" class="modal-input" placeholder="Category">
+                
+                <!-- Cloudinary Image URL -->
+                <input type="url" name="image_url" class="modal-input" placeholder="Cloudinary Image URL">
+                <div class="field-hint">From Cloudinary: https://res.cloudinary.com/your-cloud/image/upload/...</div>
+                
+                <!-- Google Drive File ID -->
+                <input type="text" name="drive_file_id" class="modal-input" 
+                       placeholder="Google Drive File ID">
+                <div class="field-hint">
+                    From Drive share link: https://drive.google.com/file/d/<strong>FILE_ID_HERE</strong>/view
+                </div>
+                
+                <!-- Optional Play Store URL -->
+                <input type="url" name="playstore_url" class="modal-input" placeholder="Google Play URL (optional)">
+                
+                <button type="submit" class="btn btn-primary">Add Software</button>
+            </form>
+        </div>
+        
+        <!-- Software List -->
+        <div class="admin-card">
+            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Software List</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Download</th>
+                        <th>Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="softwareList">
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Messages -->
+        <div class="admin-card">
+            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Community Messages</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Message</th>
+                        <th>Email</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="messageList">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="database.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
