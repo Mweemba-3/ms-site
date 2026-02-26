@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>MS CodeForge - Admin Console</title>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        /* Admin Console Specific Styles */
         .admin-container {
             padding: 100px 5% 50px;
             max-width: 1280px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .admin-header {
@@ -18,11 +25,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
         .admin-title {
             font-family: 'Orbitron', sans-serif;
             color: #00f7ff;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            word-wrap: break-word;
         }
         
         .admin-card {
@@ -31,17 +42,34 @@
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        .admin-card h2 {
+            color: #00f7ff;
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            word-wrap: break-word;
         }
         
         .admin-form {
             display: grid;
             gap: 1rem;
             max-width: 600px;
+            width: 100%;
+        }
+        
+        .admin-table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
         }
         
         .admin-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 600px;
         }
         
         .admin-table th {
@@ -49,63 +77,304 @@
             padding: 1rem;
             border-bottom: 1px solid rgba(0, 247, 255, 0.2);
             color: #00f7ff;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
         
         .admin-table td {
             padding: 1rem;
             border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            word-wrap: break-word;
         }
         
-        .btn-small {
-            padding: 0.25rem 1rem;
-            font-size: 0.875rem;
+        .admin-table tr:hover td {
+            background: rgba(0, 247, 255, 0.02);
         }
         
         .field-hint {
             color: #666;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             margin-top: -0.5rem;
             margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+        
+        .btn-small {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .btn-danger {
+            background: #ff4444;
+            color: white;
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            background: #ff6666;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: rgba(0, 247, 255, 0.1);
+            color: #00f7ff;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Mobile Menu for Admin */
+        .admin-mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 1.8rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* Stats Cards for Mobile */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(0, 247, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            color: #00f7ff;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* ===== MOBILE STYLES FOR ADMIN ===== */
+        @media screen and (max-width: 768px) {
+            .admin-container {
+                padding: 80px 1rem 30px;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .admin-card {
+                padding: 1.2rem;
+            }
+            
+            .admin-card h2 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .admin-form {
+                gap: 0.8rem;
+            }
+            
+            .admin-table-container {
+                margin: 0 -0.5rem;
+                width: calc(100% + 1rem);
+                padding: 0 0.5rem;
+            }
+            
+            .admin-table {
+                min-width: 500px;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+            
+            .btn-small {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .field-hint {
+                font-size: 0.7rem;
+            }
+            
+            /* Better touch targets */
+            .nav-link,
+            .btn,
+            .modal-close,
+            .admin-table td button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Stack form buttons */
+            .admin-form button[type="submit"] {
+                width: 100%;
+                padding: 0.8rem;
+            }
+        }
+        
+        /* Small phones */
+        @media screen and (max-width: 480px) {
+            .admin-container {
+                padding: 70px 0.8rem 20px;
+            }
+            
+            .admin-card {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-table {
+                min-width: 400px;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.6rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Landscape mode */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .admin-container {
+                padding-top: 70px;
+            }
+            
+            .admin-card {
+                padding: 1rem;
+            }
+            
+            .admin-table-container {
+                max-height: 300px;
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Canvas Backgrounds (lighter on mobile for performance) -->
     <canvas id="binary"></canvas>
     <canvas id="particles"></canvas>
     
+    <!-- Ambient Orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    
+    <!-- Navigation -->
     <header class="header">
         <div class="logo">
             <span class="logo-text">MS<span class="logo-accent">CodeForge</span></span>
         </div>
         
-        <nav class="nav">
+        <!-- Mobile Menu Button for Admin -->
+        <button class="admin-mobile-menu-btn" id="adminMobileMenuBtn">☰</button>
+        
+        <nav class="nav" id="adminNav">
             <a href="index.html" class="nav-link">View Site</a>
             <button id="logoutBtn" class="btn btn-outline">Logout</button>
         </nav>
     </header>
     
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="adminMenuOverlay"></div>
+    
     <div class="admin-container">
         <div class="admin-header">
             <h1 class="admin-title">Admin Console</h1>
+            
+            <!-- Stats Overview (visible on all devices) -->
+            <div class="stats-grid" id="statsOverview">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSoftware">0</div>
+                    <div class="stat-label">Software</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMessages">0</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDownloads">0</div>
+                    <div class="stat-label">Downloads</div>
+                </div>
+            </div>
         </div>
         
-        <!-- Add Software -->
+        <!-- Add Software Card -->
         <div class="admin-card">
-            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Add Software</h2>
+            <h2>📦 Add New Software</h2>
             <form id="addSoftwareForm" class="admin-form">
                 <input type="text" name="name" class="modal-input" placeholder="Software Name" required>
+                
                 <textarea name="description" class="modal-input" placeholder="Description" rows="3"></textarea>
-                <input type="text" name="category" class="modal-input" placeholder="Category">
+                
+                <input type="text" name="category" class="modal-input" placeholder="Category (e.g., Business, Finance, Tools)">
                 
                 <!-- Cloudinary Image URL -->
                 <input type="url" name="image_url" class="modal-input" placeholder="Cloudinary Image URL">
-                <div class="field-hint">From Cloudinary: https://res.cloudinary.com/your-cloud/image/upload/...</div>
+                <div class="field-hint">Format: https://res.cloudinary.com/your-cloud/image/upload/...</div>
                 
                 <!-- Google Drive File ID -->
-                <input type="text" name="drive_file_id" class="modal-input" 
-                       placeholder="Google Drive File ID">
+                <input type="text" name="drive_file_id" class="modal-input" placeholder="Google Drive File ID">
                 <div class="field-hint">
-                    From Drive share link: https://drive.google.com/file/d/<strong>FILE_ID_HERE</strong>/view
+                    From Drive share link: https://drive.google.com/file/d/<strong>FILE_ID</strong>/view
                 </div>
                 
                 <!-- Optional Play Store URL -->
@@ -115,51 +384,97 @@
             </form>
         </div>
         
-        <!-- Software List -->
+        <!-- Software List Card -->
         <div class="admin-card">
-            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Software List</h2>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Download</th>
-                        <th>Added</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="softwareList">
-                    <tr>
-                        <td colspan="5" style="text-align: center;">Loading...</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>📱 Software List</h2>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Download</th>
+                            <th>Added</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="softwareList">
+                        <tr>
+                            <td colspan="5" class="empty-state">Loading software...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         
-        <!-- Messages -->
+        <!-- Messages List Card -->
         <div class="admin-card">
-            <h2 style="margin-bottom: 1.5rem; color: #00f7ff;">Community Messages</h2>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Sender</th>
-                        <th>Message</th>
-                        <th>Email</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody id="messageList">
-                    <tr>
-                        <td colspan="4" style="text-align: center;">Loading...</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>💬 Community Messages</h2>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Message</th>
+                            <th>Email</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messageList">
+                        <tr>
+                            <td colspan="4" class="empty-state">Loading messages...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="database.js"></script>
     <script src="admin.js"></script>
+    
+    <script>
+        // Mobile menu functionality for admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('adminMobileMenuBtn');
+            const nav = document.getElementById('adminNav');
+            const overlay = document.getElementById('adminMenuOverlay');
+            
+            if (menuBtn && nav && overlay) {
+                menuBtn.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    menuBtn.textContent = nav.classList.contains('active') ? '×' : '☰';
+                });
+                
+                overlay.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuBtn.textContent = '☰';
+                });
+                
+                // Close menu when clicking logout
+                document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuBtn.textContent = '☰';
+                });
+            }
+            
+            // Handle touch events for better mobile experience
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                btn.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
