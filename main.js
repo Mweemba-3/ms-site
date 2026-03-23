@@ -306,7 +306,7 @@ async function loadSoftware() {
                             <span class="card-category">${sw.category || 'Enterprise'}</span>
                             <div class="card-actions">
                                 ${downloadUrl ? 
-                                    `<a href="${downloadUrl}" class="download-btn" target="_blank" rel="noopener">⬇ Download APK</a>` : 
+                                    `<a href="${downloadUrl}" class="download-btn" target="_blank" rel="noopener">⬇ Download</a>` : 
                                     sw.playstore_url ?
                                     `<a href="${sw.playstore_url}" class="playstore-link" target="_blank">View on Play Store →</a>` :
                                     '<span style="color:#666;">No download available</span>'
